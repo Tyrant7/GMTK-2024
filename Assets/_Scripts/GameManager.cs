@@ -49,8 +49,6 @@ public class GameManager : MonoBehaviour
 
         gameState = GameState.PickPhase;
         yield return new WaitForSeconds(3f);
-
-        Debug.Log("Starting pick phase!");
         SceneLoader.Instance.LoadScene("SecondScene");
     }
 
