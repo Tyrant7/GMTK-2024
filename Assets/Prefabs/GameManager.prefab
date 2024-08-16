@@ -1,0 +1,94 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &9074663434246581503
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9074663434246581500}
+  - component: {fileID: 9074663434246581501}
+  - component: {fileID: 9074663434246581490}
+  - component: {fileID: 9074663434246581491}
+  - component: {fileID: 9074663434246581488}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9074663434246581500
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9074663434246581503}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9074663434246581501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9074663434246581503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08843945e18e3cd4ba57313d3b076e6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  environmentPrefab: {fileID: 1705456109705817188, guid: 6696477eb78b9ee44bec72352f3c74a8, type: 3}
+  generator: {fileID: 9074663434246581490}
+--- !u!114 &9074663434246581490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9074663434246581503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d96fc9a146871bf4d9321b4ef1684a35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &9074663434246581491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9074663434246581503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a8c38f2f4b98774daa41841430f17b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  phaseSceneNames:
+  - DrawPhase
+  - PickPhase
+  - BuildPhase
+--- !u!114 &9074663434246581488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9074663434246581503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d5c84fa21b7b1b4a82cf0d1bc035a87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transitionPrefabs:
+  - {fileID: 4464764661859982080, guid: 86da777974ebf764496b5bbf76ea23e1, type: 3}
+  - {fileID: 4464764661859982080, guid: e88b0dc5168fa6346b13733b43218096, type: 3}

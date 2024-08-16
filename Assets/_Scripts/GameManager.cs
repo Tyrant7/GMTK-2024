@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
 
         gameState = GameState.PickPhase;
         yield return new WaitForSeconds(3f);
-        SceneLoader.Instance.LoadScene("SecondScene");
+        SceneLoader.Instance.LoadScene("PickPhase", TransitionHandler.TransitionType.SideSwipe);
     }
 
     private void CreateEnvironment()
