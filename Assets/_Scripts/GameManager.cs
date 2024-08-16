@@ -30,8 +30,22 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        StartCoroutine(StartDrawPhase(10));
+    }
+
+    private IEnumerator StartDrawPhase(int countDownLength)
+    {
         gameState = GameState.DrawPhase;
         CreateEnvironment();
+        PhaseTimer phaseTimer = FindObjectOfType<PhaseTimer>();
+        for (int i = countDownLength; i > 0; i--)
+        {
+            if (phaseTimer) phaseTimer.UpdateText(i);
+            yield return new WaitForSeconds(1f);
+        }
+        if (phaseTimer) phaseTimer.UpdateText(0);
+
+        Debug.Log("Starting pick phase!");
     }
 
     private void CreateEnvironment()
