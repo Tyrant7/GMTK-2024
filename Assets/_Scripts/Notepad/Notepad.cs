@@ -7,6 +7,8 @@ public class Notepad : MonoBehaviour
     [SerializeField] GameObject brush;
     [SerializeField] LayerMask mask;
 
+    Color currentColor;
+
     LineRenderer currentLineRenderer;
     Vector2 lastPos;
 
@@ -51,8 +53,10 @@ public class Notepad : MonoBehaviour
             return;
         }
 
-        GameObject brushInstance = Instantiate(brush);
+        GameObject brushInstance = Instantiate(brush, transform);
         currentLineRenderer = brushInstance.GetComponent<LineRenderer>();
+        currentLineRenderer.startColor = currentColor;
+        currentLineRenderer.endColor = currentColor;
 
         currentLineRenderer.SetPosition(0, mousePos);
         currentLineRenderer.SetPosition(1, mousePos);
@@ -63,5 +67,15 @@ public class Notepad : MonoBehaviour
         currentLineRenderer.positionCount++;
         int positionIndex = currentLineRenderer.positionCount - 1;
         currentLineRenderer.SetPosition(positionIndex, pointPos);
+    }
+
+    public Color GetCurrentColor()
+    {
+        return currentColor;
+    }
+
+    public void SetColor(Color newColor)
+    {
+        currentColor = newColor;
     }
 }
