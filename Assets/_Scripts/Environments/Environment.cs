@@ -9,7 +9,7 @@ public class Environment : MonoBehaviour
 
     const int MAX_ATTEMPTS = 5000;
 
-    public Vector2 AddRandomObject()
+    public EnvironmentObject AddRandomObject()
     {
         List<EnvironmentObject> weightedList = new List<EnvironmentObject>();
         foreach (EnvironmentObject env in environmentObjects)
@@ -35,11 +35,11 @@ public class Environment : MonoBehaviour
                 if (result == allowedArea)
                 {
                     Instantiate(randomObject, randomPoint, Quaternion.identity, transform);
-                    return randomPoint;
+                    return randomObject;
                 }
             }
         }
         Debug.LogWarning("Failed to successfully place object " + randomObject.name);
-        return Vector2.positiveInfinity;
+        return null;
     }
 }

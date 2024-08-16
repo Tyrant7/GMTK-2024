@@ -97,5 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58f58413641dddb4c884fb9d05a5489e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardboardEquivalents:
+  - {fileID: 4977617326557241422, guid: 3982e9e93547a8641851922621603d50, type: 3}
   allowedAreaIndex: 1
   probability: 1

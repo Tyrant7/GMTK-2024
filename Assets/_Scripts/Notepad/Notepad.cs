@@ -4,6 +4,18 @@ using UnityEngine;
 
 public class Notepad : MonoBehaviour
 {
+    public static Notepad Instance { get; private set; }
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+            return;
+        }
+        Destroy(gameObject);
+    }
+
     [Header("Anchoring")]
     [SerializeField] Vector2 unfocusedPoint;
     [SerializeField] Vector2 focusedPoint;

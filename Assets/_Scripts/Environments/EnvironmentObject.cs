@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnvironmentObject : MonoBehaviour
 {
+    public GameObject[] cardboardEquivalents;
+
     public int allowedAreaIndex;
     public int probability;
 }

@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class EnvironmentGenerator : MonoBehaviour
 {
-    public List<Vector2> GenerateEnvironment(GameObject environmentPrefab, int objectCount)
+    public List<EnvironmentObject> GenerateEnvironment(GameObject environmentPrefab, int objectCount)
     {
-        List<Vector2> objectPoints = new List<Vector2>();
+        List<EnvironmentObject> objectPoints = new List<EnvironmentObject>();
 
         GameObject visualObject = Instantiate(environmentPrefab, Vector2.zero, Quaternion.identity);
         Environment environment = visualObject.GetComponent<Environment>();
         for (int i = 0; i < objectCount; i++)
         {
-            Vector2 newPos = environment.AddRandomObject();
-            if (newPos != Vector2.positiveInfinity)
+            EnvironmentObject newObject = environment.AddRandomObject();
+            if (newObject != null)
             {
-                objectPoints.Add(newPos);
+                objectPoints.Add(newObject);
             }
         }
         return objectPoints;
