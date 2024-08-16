@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Environment : MonoBehaviour
 {
-    public EnvironmentObject[] environmentObjects;
+    [SerializeField] EnvironmentObject[] environmentObjects;
+    [SerializeField] Collider2D[] objectAreas;
 
     const int MAX_ATTEMPTS = 5000;
 
@@ -21,7 +22,7 @@ public class Environment : MonoBehaviour
         EnvironmentObject randomObject = weightedList[Random.Range(0, weightedList.Count)];
 
         // Now that we have our random object, we'll pick a point inside its allowed area
-        Collider2D allowedArea = randomObject.allowedArea;
+        Collider2D allowedArea = objectAreas[randomObject.allowedAreaIndex];
         Bounds areaBounds = allowedArea.bounds;
 
         // Max attempts is in case there isn't a valid area at all
@@ -33,7 +34,7 @@ public class Environment : MonoBehaviour
             {
                 if (result == allowedArea)
                 {
-                    Instantiate(randomObject, randomPoint, Quaternion.identity);
+                    Instantiate(randomObject, randomPoint, Quaternion.identity, transform);
                     return randomPoint;
                 }
             }

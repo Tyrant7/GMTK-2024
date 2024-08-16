@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class EnvironmentObject : MonoBehaviour
 {
-    public Collider2D allowedArea;
+    public int allowedAreaIndex;
     public int probability;
 }
