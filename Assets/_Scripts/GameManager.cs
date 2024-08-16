@@ -45,7 +45,13 @@ public class GameManager : MonoBehaviour
         }
         if (phaseTimer) phaseTimer.UpdateText(0);
 
+        // Sounds!
+
+        gameState = GameState.PickPhase;
+        yield return new WaitForSeconds(3f);
+
         Debug.Log("Starting pick phase!");
+        SceneLoader.Instance.LoadScene("SecondScene");
     }
 
     private void CreateEnvironment()
