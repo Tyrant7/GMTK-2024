@@ -14,7 +14,10 @@ public class Notepad : MonoBehaviour
 
     private void Update()
     {
-        Draw();
+        if (GameManager.Instance.gameState == GameManager.GameState.DrawPhase)
+        {
+            Draw();
+        }
     }
 
     void Draw()
