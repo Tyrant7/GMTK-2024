@@ -31,8 +31,6 @@ public class Notepad : MonoBehaviour
         MoveToPlacement(interpolateTarget);
 
         // Drawing
-        Draw();
-        return;
         if (GameManager.Instance.gameState == GameManager.GameState.DrawPhase)
         {
             Draw();
