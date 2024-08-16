@@ -28,8 +28,13 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] EnvironmentGenerator generator;
 
-    [ContextMenu("Generate Environment")]
-    public void CreateEnvironment()
+    private void Start()
+    {
+        gameState = GameState.DrawPhase;
+        CreateEnvironment();
+    }
+
+    private void CreateEnvironment()
     {
         generator.GenerateEnvironment(environmentPrefab, 50);
     }
