@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(StartDrawPhase(10));
+        StartCoroutine(StartDrawPhase(5));
     }
 
     private IEnumerator StartDrawPhase(int countDownLength)
@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
         // Sounds!
 
         gameState = GameState.PickPhase;
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         SceneLoader.Instance.LoadScene("PickPhase", TransitionHandler.TransitionType.SideSwipe);
         StartCoroutine(StartPickPhase());
     }

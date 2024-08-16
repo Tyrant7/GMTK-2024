@@ -12,6 +12,7 @@ public class TableGenerator : MonoBehaviour
         foreach (EnvironmentObject envObj in environment)
         {
             GameObject randomEquivalent = envObj.cardboardEquivalents[Random.Range(0, envObj.cardboardEquivalents.Length)];
+            randomEquivalent.GetComponent<SpriteRenderer>().sortingOrder = choices.Count + 1;
             choices.Add(randomEquivalent);
         }
 
@@ -20,6 +21,7 @@ public class TableGenerator : MonoBehaviour
         {
             EnvironmentObject randomUnlocked = unlocked[Random.Range(0, unlocked.Count)];
             GameObject randomEquivalent = randomUnlocked.cardboardEquivalents[Random.Range(0, randomUnlocked.cardboardEquivalents.Length)];
+            randomEquivalent.GetComponent<SpriteRenderer>().sortingOrder = choices.Count + 1;
             choices.Add(randomEquivalent);
         }
         return choices;
