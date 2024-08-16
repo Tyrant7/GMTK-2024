@@ -31,6 +31,8 @@ public class Notepad : MonoBehaviour
         MoveToPlacement(interpolateTarget);
 
         // Drawing
+        Draw();
+        return;
         if (GameManager.Instance.gameState == GameManager.GameState.DrawPhase)
         {
             Draw();
@@ -85,15 +87,15 @@ public class Notepad : MonoBehaviour
         currentLineRenderer.startColor = currentColor;
         currentLineRenderer.endColor = currentColor;
 
-        currentLineRenderer.SetPosition(0, mousePos);
-        currentLineRenderer.SetPosition(1, mousePos);
+        currentLineRenderer.SetPosition(0, mousePos - (Vector2)transform.position);
+        currentLineRenderer.SetPosition(1, mousePos - (Vector2)transform.position);
     }
 
     void AddPoint(Vector2 pointPos)
     {
         currentLineRenderer.positionCount++;
         int positionIndex = currentLineRenderer.positionCount - 1;
-        currentLineRenderer.SetPosition(positionIndex, pointPos);
+        currentLineRenderer.SetPosition(positionIndex, pointPos - (Vector2)transform.position);
     }
 
     public Color GetCurrentColor()
