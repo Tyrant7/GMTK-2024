@@ -125,3 +125,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   equivalentID: blue
+  prefab: {fileID: 3140052952041198485, guid: f090e9ec07a19914382d31b1edf37e5c, type: 3}
+  isPlayer: 0
