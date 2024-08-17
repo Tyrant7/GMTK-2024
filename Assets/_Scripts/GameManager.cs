@@ -145,8 +145,23 @@ public class GameManager : MonoBehaviour
         StartCoroutine(scorer.AnimateScores(info));
         yield return new WaitUntil(() => !scorer.Animating);
 
-        // Environment environment = FindObjectOfType<Environment>();
-        // environment.gameObject.SetActive(true);
+        yield return new WaitForSeconds(1f);
+
+        Environment environment = FindObjectOfType<Environment>(true);
+        environment.gameObject.SetActive(true);
+        foreach (EnvironmentObject envObj in currentEnvironment)
+        {
+            envObj.gameObject.SetActive(true);
+        }
+
+        Reveal tableReveal = FindObjectOfType<WorkshopTable>().gameObject.GetComponentInChildren<Reveal>();
+        StartCoroutine(tableReveal.AnimateReveal());
+        yield return new WaitUntil(() => !tableReveal.IsRevealing);
+
+        yield return new WaitForSeconds(1f);
+
+        StartCoroutine(tableReveal.AnimateConceal());
+        yield return new WaitUntil(() => !tableReveal.IsRevealing);
 
         yield return null;
     }
