@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
 
     public enum GameState
     {
-        NotStarted, DrawPhase, PickPhase, BuildPhase, ScorePhase
+        NotStarted, DrawPhase, PickPhase, BuildPhase, ScorePhase, CombatPhase,
     }
 
     public GameState gameState { get; private set; }
@@ -29,9 +29,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] EnvironmentGenerator environmentGenerator;
     [SerializeField] TableGenerator tableGenerator;
     [SerializeField] Scorer scorer;
+    [SerializeField] CombatHandler combatHandler;
 
     List<EnvironmentObject> currentEnvironment;
     List<GameObject> chosenElements;
+    List<CutoutObject> placedElements;
 
     private void Start()
     {
@@ -46,8 +48,9 @@ public class GameManager : MonoBehaviour
                 break;
             case "BuildPhase":
                 break;
+            case "CombatPhase":
+                break;
             default:
-                StartCoroutine(StartDrawPhase(5));
                 break;
         }
     }
@@ -119,7 +122,7 @@ public class GameManager : MonoBehaviour
     public void EndBuildPhase()
     {
         WorkshopTable workshopTable = FindObjectOfType<WorkshopTable>();
-        List<CutoutObject> placedElements = workshopTable.GetPlacedElements();
+        placedElements = workshopTable.GetPlacedElements();
         if (placedElements.Count < chosenElements.Count)
         {
             // TODO
@@ -128,18 +131,16 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        StartScorePhase(placedElements);
+        StartScorePhase();
     }
 
-    private void StartScorePhase (List<CutoutObject> placedElements)
+    private void StartScorePhase()
 	{
         gameState = GameState.ScorePhase;
-        Debug.Log("Score Phase");
-
-        StartCoroutine(AnimateScorePhase(placedElements));
+        StartCoroutine(AnimateScorePhase());
 	}
 
-    private IEnumerator AnimateScorePhase(List<CutoutObject> placedElements)
+    private IEnumerator AnimateScorePhase()
     {
         ScoreDisplayInfo info = scorer.ScoreEnvironment(currentEnvironment, placedElements);
         StartCoroutine(scorer.AnimateScores(info));
@@ -163,6 +164,45 @@ public class GameManager : MonoBehaviour
         StartCoroutine(tableReveal.AnimateConceal());
         yield return new WaitUntil(() => !tableReveal.IsRevealing);
 
-        yield return null;
+        // Let's create the spawn requests for the combat phase so all of these objects don't have to stick around
+        List<SpawnRequest> spawnRequests = new List<SpawnRequest>();
+        foreach (CutoutObject cutout in placedElements)
+        {
+            spawnRequests.Add(new SpawnRequest(cutout.transform.position, cutout.prefab, cutout.isPlayer));
+        }
+
+        SceneLoader.Instance.LoadScene("CombatPhase", TransitionHandler.TransitionType.SideSwipe);
+        yield return new WaitUntil(() => !SceneLoader.LoadingScene);
+        StartCombatPhase(spawnRequests, info.totalScore);
+    }
+
+    private void StartCombatPhase(List<SpawnRequest> spawnRequests, int score)
+    {
+        gameState = GameState.CombatPhase;
+
+        combatHandler.StartCombat(spawnRequests, score);
+        // Spawn enemies
+        // Spawn player
+
+        // GO!
+    }
+
+    public void EndCombatPhase()
+    {
+        Debug.Log("ending combat phase");
+    }
+}
+
+public struct SpawnRequest
+{
+    public Vector2 position;
+    public GameObject prefab;
+    public bool isPlayer;
+
+    public SpawnRequest(Vector2 position, GameObject prefab, bool isPlayer)
+    {
+        this.position = position;
+        this.prefab = prefab;
+        this.isPlayer = isPlayer;
     }
 }
