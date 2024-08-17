@@ -43,6 +43,9 @@ public class Table : MonoBehaviour
     {
         if (!Input.GetKey(KeyCode.Mouse0))
         {
+            if(selected)
+            selected.localScale = new Vector3(selected.localScale.x / 1.2f, selected.localScale.y / 1.2f, selected.localScale.z);
+
             selected = null;
             return;
         }
@@ -69,7 +72,10 @@ public class Table : MonoBehaviour
             selectCount++;
             best.GetComponent<SpriteRenderer>().sortingOrder = tableObjects.Count + selectCount;
             selected = best;
+
+            selected.localScale = new Vector3(selected.localScale.x * 1.2f, selected.localScale.y * 1.2f, selected.localScale.z);
         }
         selected.position = mousePos;
+      
     }
 }

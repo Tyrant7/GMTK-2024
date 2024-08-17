@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
 
     public enum GameState
     {
-        NotStarted, DrawPhase, PickPhase, BuildPhase
+        NotStarted, DrawPhase, PickPhase, BuildPhase, ScorePhase
     }
 
     public GameState gameState { get; private set; }
@@ -43,11 +43,8 @@ public class GameManager : MonoBehaviour
                 CreateEnvironment(true);
                 StartPickPhase();
                 break;
-            /*
-        case "BuildPhase":
-            CreateEnvironment(true);
-            break;
-            */
+            case "BuildPhase":
+                break;
             default:
                 StartCoroutine(StartDrawPhase(5));
                 break;
@@ -110,7 +107,29 @@ public class GameManager : MonoBehaviour
 
     private void StartBuildPhase()
     {
-        Debug.Log("welcome to the build phase");
         gameState = GameState.PickPhase;
+
+        Debug.Log("welcome to the build phase");
+        WorkshopTable workshopTable = FindObjectOfType<WorkshopTable>();
+        workshopTable.AddChosenObjects(chosenElements);
     }
+
+    public void EndBuildPhase()
+    {
+        StartCoroutine(TransitionOutOfBuildPhase());
+    }
+
+    private IEnumerator TransitionOutOfBuildPhase()
+    {
+        SceneLoader.Instance.LoadScene("ScorePhase", TransitionHandler.TransitionType.SideSwipe);
+        yield return new WaitUntil(() => !SceneLoader.LoadingScene);
+        StartScorePhase();
+    }
+
+    private void StartScorePhase ()
+	{
+        //Currently when the game loop reaches to the score phase it errors out because of some issue with the Scene Loader. I have no idea of it so you probably know what to do.
+        gameState = GameState.ScorePhase;
+        Debug.Log("Score Phase");
+	}
 }
