@@ -66,6 +66,7 @@ public class Scorer : MonoBehaviour
             totalScore += score;
             displayInfo.AddScore(placed.transform.position, score);
         }
+        displayInfo.totalScore = totalScore;
         return displayInfo;
     }
 

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 9074663434246581488}
   - component: {fileID: 1702933661649900632}
   - component: {fileID: 1525825753087750554}
+  - component: {fileID: 7966100520358824827}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -54,7 +55,7 @@ MonoBehaviour:
   environmentGenerator: {fileID: 9074663434246581490}
   tableGenerator: {fileID: 1702933661649900632}
   scorer: {fileID: 1525825753087750554}
-  combatHandler: {fileID: 0}
+  combatHandler: {fileID: 7966100520358824827}
 --- !u!114 &9074663434246581490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,3 +120,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreTextPrefab: {fileID: 3549470068006649723, guid: a1e71ce525765984fad85897fde8bd6b, type: 3}
+--- !u!114 &7966100520358824827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9074663434246581503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f81c68c252bdf240acb378e0a343157, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

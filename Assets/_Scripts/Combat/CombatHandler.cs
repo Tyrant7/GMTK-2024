@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class CombatHandler : MonoBehaviour
 {
-    [SerializeField] CameraFollow cameraFollow;
-
     private List<Enemy> enemies;
 
     public void StartCombat(List<SpawnRequest> requests, int score)
@@ -18,7 +16,7 @@ public class CombatHandler : MonoBehaviour
             {
                 PlayerController player = spawned.GetComponent<PlayerController>();
                 player.Initialize(score);
-                cameraFollow.EnableFollow(player.transform);
+                Camera.main.GetComponent<CameraFollow>().EnableFollow(player.transform);
                 continue;
             }
             Enemy enemy = spawned.GetComponent<Enemy>();
