@@ -10,6 +10,7 @@ public class Table : MonoBehaviour
     private List<GameObject> tableObjects;
 
     private Transform selected;
+    private int selectCount = 0;
 
     public void Populate(List<GameObject> contents)
     {
@@ -47,12 +48,12 @@ public class Table : MonoBehaviour
                     best = result.transform;
                 }
             }
+            if (best == null) return;
+
+            selectCount++;
+            best.GetComponent<SpriteRenderer>().sortingOrder = tableObjects.Count + selectCount;
             selected = best;
         }
-
-        if (selected != null)
-        {
-            selected.position = mousePos;
-        }
+        selected.position = mousePos;
     }
 }
