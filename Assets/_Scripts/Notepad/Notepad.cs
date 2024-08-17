@@ -19,7 +19,6 @@ public class Notepad : MonoBehaviour
     [Header("Anchoring")]
     [SerializeField] Vector2 unfocusedPoint;
     [SerializeField] Vector2 focusedPoint;
-    [SerializeField] Vector2 outPoint;
     [SerializeField] LayerMask focusMask;
     [SerializeField] float slideSpeed, minSlideSpeed, maxSlideSpeed;
 
@@ -34,21 +33,14 @@ public class Notepad : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.Instance.gameState == GameManager.GameState.CombatPhase)
+        // Focusing
+        Vector2 interpolateTarget = unfocusedPoint;
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (Physics2D.OverlapPoint(mousePos, focusMask))
         {
-            MoveToPlacement(outPoint);
+            interpolateTarget = focusedPoint;
         }
-        else
-        {
-            // Focusing
-            Vector2 interpolateTarget = unfocusedPoint;
-            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            if (Physics2D.OverlapPoint(mousePos, focusMask))
-            {
-                interpolateTarget = focusedPoint;
-            }
-            MoveToPlacement(interpolateTarget);
-        }
+        MoveToPlacement(interpolateTarget);
 
         // Drawing
         if (GameManager.Instance.gameState == GameManager.GameState.DrawPhase)

@@ -47,8 +47,10 @@ public class GameManager : MonoBehaviour
                 StartPickPhase();
                 break;
             case "BuildPhase":
+                gameState = GameState.BuildPhase;
                 break;
             case "CombatPhase":
+                gameState = GameState.CombatPhase;
                 break;
             default:
                 break;
