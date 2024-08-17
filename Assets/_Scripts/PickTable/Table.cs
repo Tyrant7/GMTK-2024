@@ -6,6 +6,7 @@ public class Table : MonoBehaviour
 {
     [SerializeField] float maxRadius;
     [SerializeField] LayerMask tableObjectMask;
+    [SerializeField] Collider2D tablePickArea;
 
     private List<GameObject> tableObjects;
 
@@ -25,10 +26,17 @@ public class Table : MonoBehaviour
 
     public List<GameObject> GetChosenElements()
     {
+        List<GameObject> chosenObjects = new List<GameObject>();
         foreach (GameObject tableObject in tableObjects)
         {
-            
+            if (tablePickArea.OverlapPoint(tableObject.transform.position))
+            {
+                tableObject.transform.parent = null;
+                DontDestroyOnLoad(tableObject);
+                chosenObjects.Add(tableObject);
+            }
         }
+        return chosenObjects;
     }
 
     private void Update()
