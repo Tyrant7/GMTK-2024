@@ -53,7 +53,8 @@ public class GameManager : MonoBehaviour
         gameState = GameState.PickPhase;
         yield return new WaitForSeconds(2f);
         SceneLoader.Instance.LoadScene("PickPhase", TransitionHandler.TransitionType.SideSwipe);
-        StartCoroutine(StartPickPhase());
+        yield return new WaitUntil(() => !SceneLoader.LoadingScene);
+        StartPickPhase();
     }
 
     private void CreateEnvironment()
@@ -61,10 +62,8 @@ public class GameManager : MonoBehaviour
         currentEnvironment = environmentGenerator.GenerateEnvironment(environmentPrefab, 50);
     }
 
-    private IEnumerator StartPickPhase()
+    private void StartPickPhase()
     {
-        yield return new WaitUntil(() => !SceneLoader.LoadingScene);
-
         gameState = GameState.PickPhase;
         List<GameObject> tableContents = tableGenerator.GenerateTable(currentEnvironment, currentEnvironment, 10);
 
@@ -72,8 +71,8 @@ public class GameManager : MonoBehaviour
         table.Populate(tableContents);
     }
 
-    public void Pick(GameObject chosen)
+    public void EndPickPhase()
     {
-        Debug.Log("picking " + chosen.name);
+
     }
 }
