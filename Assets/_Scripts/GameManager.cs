@@ -183,11 +183,13 @@ public class GameManager : MonoBehaviour
     {
         gameState = GameState.CombatPhase;
 
-        combatHandler.StartCombat(spawnRequests, score);
-        // Spawn enemies
-        // Spawn player
+        // Cleanup scene, let's destroy the environment and notepad
+        GameObject environment = FindObjectOfType<Environment>().gameObject;
+        GameObject notepad = FindObjectOfType<Notepad>().gameObject;
+        if (environment) Destroy(environment);
+        if (notepad) Destroy(notepad);
 
-        // GO!
+        combatHandler.StartCombat(spawnRequests, score);
     }
 
     public void EndCombatPhase()
