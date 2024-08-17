@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
 
 
     [SerializeField] GameObject environmentPrefab;
+    [SerializeField] GameObject playerCutoutPrefab;
 
     [SerializeField] EnvironmentGenerator environmentGenerator;
     [SerializeField] TableGenerator tableGenerator;
@@ -94,7 +95,7 @@ public class GameManager : MonoBehaviour
         List<GameObject> tableContents = tableGenerator.GenerateTable(currentEnvironment, currentEnvironment, 10);
 
         Table table = FindObjectOfType<Table>();
-        table.Populate(tableContents);
+        table.Populate(tableContents, playerCutoutPrefab);
     }
 
     public void EndPickPhase()
