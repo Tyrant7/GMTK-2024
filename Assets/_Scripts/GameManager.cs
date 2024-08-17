@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] EnvironmentGenerator environmentGenerator;
     [SerializeField] TableGenerator tableGenerator;
+    [SerializeField] Scorer scorer;
 
     List<EnvironmentObject> currentEnvironment;
     List<GameObject> chosenElements;
@@ -140,10 +141,12 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator AnimateScorePhase(List<CutoutObject> placedElements)
     {
-        Scorer.ScoreEnvironment(currentEnvironment, placedElements);
+        ScoreDisplayInfo info = scorer.ScoreEnvironment(currentEnvironment, placedElements);
+        StartCoroutine(scorer.AnimateScores(info));
+        yield return new WaitUntil(() => !scorer.Animating);
 
-        Environment environment = FindObjectOfType<Environment>();
-        environment.gameObject.SetActive(true);
+        // Environment environment = FindObjectOfType<Environment>();
+        // environment.gameObject.SetActive(true);
 
         yield return null;
     }
