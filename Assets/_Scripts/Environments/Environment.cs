@@ -34,8 +34,7 @@ public class Environment : MonoBehaviour
             {
                 if (result == allowedArea)
                 {
-                    Instantiate(randomObject, randomPoint, Quaternion.identity, transform);
-                    return randomObject;
+                    return Instantiate(randomObject, randomPoint, Quaternion.identity, transform);
                 }
             }
         }

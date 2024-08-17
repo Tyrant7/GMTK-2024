@@ -219,7 +219,7 @@ GameObject:
   - component: {fileID: 598670050}
   - component: {fileID: 598670049}
   m_Layer: 5
-  m_Name: Build_Text
+  m_Name: Score_Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -265,7 +265,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Submit
+  m_text: Score
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -891,10 +891,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3350867630426708550, guid: a1e2a2fafb1b9c44e92e50d3270dbf3b, type: 3}
-      propertyPath: workshopTableObjectMask.m_Bits
-      value: 1024
-      objectReference: {fileID: 0}
     - target: {fileID: 7304464673209700521, guid: a1e2a2fafb1b9c44e92e50d3270dbf3b, type: 3}
       propertyPath: m_RootOrder
       value: 3

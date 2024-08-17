@@ -5,6 +5,7 @@ using UnityEngine;
 public class WorkshopTable : MonoBehaviour
 {
     [SerializeField] LayerMask workshopTableObjectMask;
+    [SerializeField] Collider2D workshopTablePlaceArea;
 
     private List<GameObject> workshopTableObjects;
     private Transform selected;
@@ -13,7 +14,6 @@ public class WorkshopTable : MonoBehaviour
 
     public void AddChosenObjects(List<GameObject> chosenObjects)
 	{
-        Debug.Log("something");
         workshopTableObjects = new List<GameObject>();
 
         foreach(GameObject chosenObject in chosenObjects)
@@ -22,6 +22,19 @@ public class WorkshopTable : MonoBehaviour
             workshopTableObjects.Add(chosenObject);
 		}
 	}
+
+    public List<CutoutObject> GetPlacedElements()
+    {
+        List<CutoutObject> chosenObjects = new List<CutoutObject>();
+        foreach (GameObject tableObject in workshopTableObjects)
+        {
+            if (workshopTablePlaceArea.OverlapPoint(tableObject.transform.position))
+            {
+                chosenObjects.Add(tableObject.GetComponent<CutoutObject>());
+            }
+        }
+        return chosenObjects;
+    }
 
     private void Update()
     {

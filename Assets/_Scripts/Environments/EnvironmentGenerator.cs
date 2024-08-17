@@ -10,6 +10,7 @@ public class EnvironmentGenerator : MonoBehaviour
 
         GameObject visualObject = Instantiate(environmentPrefab, Vector2.zero, Quaternion.identity);
         Environment environment = visualObject.GetComponent<Environment>();
+        DontDestroyOnLoad(visualObject);
         for (int i = 0; i < objectCount; i++)
         {
             EnvironmentObject newObject = environment.AddRandomObject();

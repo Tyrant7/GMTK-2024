@@ -71,6 +71,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
         SceneLoader.Instance.LoadScene("PickPhase", TransitionHandler.TransitionType.SideSwipe);
         yield return new WaitUntil(() => !SceneLoader.LoadingScene);
+        currentEnvironment[0].transform.root.gameObject.SetActive(false);
         StartPickPhase();
     }
 
@@ -116,20 +117,34 @@ public class GameManager : MonoBehaviour
 
     public void EndBuildPhase()
     {
-        StartCoroutine(TransitionOutOfBuildPhase());
+        WorkshopTable workshopTable = FindObjectOfType<WorkshopTable>();
+        List<CutoutObject> placedElements = workshopTable.GetPlacedElements();
+        if (placedElements.Count < chosenElements.Count)
+        {
+            // TODO
+            // Gray out build button or give warning to player
+            Debug.Log("Didn't place all elements");
+            return;
+        }
+
+        StartScorePhase(placedElements);
     }
 
-    private IEnumerator TransitionOutOfBuildPhase()
-    {
-        SceneLoader.Instance.LoadScene("ScorePhase", TransitionHandler.TransitionType.SideSwipe);
-        yield return new WaitUntil(() => !SceneLoader.LoadingScene);
-        StartScorePhase();
-    }
-
-    private void StartScorePhase ()
+    private void StartScorePhase (List<CutoutObject> placedElements)
 	{
-        //Currently when the game loop reaches to the score phase it errors out because of some issue with the Scene Loader. I have no idea of it so you probably know what to do.
         gameState = GameState.ScorePhase;
         Debug.Log("Score Phase");
+
+        StartCoroutine(AnimateScorePhase(placedElements));
 	}
+
+    private IEnumerator AnimateScorePhase(List<CutoutObject> placedElements)
+    {
+        Scorer.ScoreEnvironment(currentEnvironment, placedElements);
+
+        Environment environment = FindObjectOfType<Environment>();
+        environment.gameObject.SetActive(true);
+
+        yield return null;
+    }
 }
