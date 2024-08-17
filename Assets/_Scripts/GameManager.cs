@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] TableGenerator tableGenerator;
 
     List<EnvironmentObject> currentEnvironment;
+    List<GameObject> chosenElements;
 
     private void Start()
     {
@@ -94,6 +95,9 @@ public class GameManager : MonoBehaviour
 
     public void EndPickPhase()
     {
+        Table table = FindObjectOfType<Table>();
+        chosenElements = table.GetChosenElements();
+
         StartCoroutine(TransitionOutOfPickPhase());
     }
 

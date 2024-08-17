@@ -23,6 +23,14 @@ public class Table : MonoBehaviour
         }
     }
 
+    public List<GameObject> GetChosenElements()
+    {
+        foreach (GameObject tableObject in tableObjects)
+        {
+            
+        }
+    }
+
     private void Update()
     {
         if (!Input.GetKey(KeyCode.Mouse0))
