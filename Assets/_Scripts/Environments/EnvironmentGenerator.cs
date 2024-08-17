@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnvironmentGenerator : MonoBehaviour
 {
-    public List<EnvironmentObject> GenerateEnvironment(GameObject environmentPrefab, int objectCount)
+    public List<EnvironmentObject> GenerateEnvironment(GameObject environmentPrefab, int objectCount, bool debug)
     {
         List<EnvironmentObject> objectPoints = new List<EnvironmentObject>();
 
@@ -15,9 +15,11 @@ public class EnvironmentGenerator : MonoBehaviour
             EnvironmentObject newObject = environment.AddRandomObject();
             if (newObject != null)
             {
+                if (debug) newObject.gameObject.SetActive(false);
                 objectPoints.Add(newObject);
             }
         }
+        if (debug) visualObject.SetActive(false);
         return objectPoints;
     }
 }

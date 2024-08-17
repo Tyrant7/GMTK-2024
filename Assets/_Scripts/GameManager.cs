@@ -33,13 +33,32 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(StartDrawPhase(5));
+        switch (SceneLoader.Instance.SceneName)
+        {
+            case "DrawPhase":
+                StartCoroutine(StartDrawPhase(5));
+                break;
+            case "PickPhase":
+                CreateEnvironment(true);
+                StartPickPhase();
+                break;
+            /*
+        case "BuildPhase":
+            CreateEnvironment(true);
+            break;
+            */
+            default:
+                StartCoroutine(StartDrawPhase(5));
+                break;
+        }
     }
 
     private IEnumerator StartDrawPhase(int countDownLength)
     {
+        Debug.Log("welcome to the draw phase");
+
         gameState = GameState.DrawPhase;
-        CreateEnvironment();
+        CreateEnvironment(false);
         PhaseTimer phaseTimer = FindObjectOfType<PhaseTimer>();
         for (int i = countDownLength; i > 0; i--)
         {
@@ -57,13 +76,15 @@ public class GameManager : MonoBehaviour
         StartPickPhase();
     }
 
-    private void CreateEnvironment()
+    private void CreateEnvironment(bool debug)
     {
-        currentEnvironment = environmentGenerator.GenerateEnvironment(environmentPrefab, 50);
+        currentEnvironment = environmentGenerator.GenerateEnvironment(environmentPrefab, 50, debug);
     }
 
     private void StartPickPhase()
     {
+        Debug.Log("welcome to the pick phase");
+
         gameState = GameState.PickPhase;
         List<GameObject> tableContents = tableGenerator.GenerateTable(currentEnvironment, currentEnvironment, 10);
 
@@ -73,6 +94,19 @@ public class GameManager : MonoBehaviour
 
     public void EndPickPhase()
     {
+        StartCoroutine(TransitionOutOfPickPhase());
+    }
 
+    private IEnumerator TransitionOutOfPickPhase()
+    {
+        SceneLoader.Instance.LoadScene("BuildPhase", TransitionHandler.TransitionType.SideSwipe);
+        yield return new WaitUntil(() => !SceneLoader.LoadingScene);
+        StartBuildPhase();
+    }
+
+    private void StartBuildPhase()
+    {
+        Debug.Log("welcome to the build phase");
+        gameState = GameState.PickPhase;
     }
 }
